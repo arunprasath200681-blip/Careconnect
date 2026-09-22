@@ -5,8 +5,20 @@
 [![Spring Data JPA](https://img.shields.io/badge/Spring%20Data-JPA-6DB33F?style=for-the-badge&logo=hibernate&logoColor=white)](https://spring.io/projects/spring-data-jpa)
 [![Database](https://img.shields.io/badge/Database-H2%20%2F%20MySQL%208-00758F?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Frontend](https://img.shields.io/badge/Frontend-HTML5%20%2F%20TailwindCSS%20%2F%20JavaScript-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/arunprasath200681-blip/Careconnect)
 
 **CareConnect** is an enterprise-grade full-stack clinic appointment scheduling web application built with **Java 22, Spring Boot 3, Spring Data JPA/Hibernate, Relational SQL, and Modern JavaScript**. It is engineered with clean layered architecture, Role-Based Access Control (RBAC), database concurrency constraints, digital medical prescription issuance, and real-time clinic analytics in **Indian Rupees (₹ INR)**.
+
+---
+
+## 🚀 1-Click Live Cloud Deployment
+
+Click the button below to deploy this repository live on Render for free:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/arunprasath200681-blip/Careconnect)
+
+* **Repository:** [https://github.com/arunprasath200681-blip/Careconnect](https://github.com/arunprasath200681-blip/Careconnect)
+* **Direct Deploy Link:** [Deploy on Render](https://render.com/deploy?repo=https://github.com/arunprasath200681-blip/Careconnect)
 
 ---
 
@@ -33,6 +45,7 @@
 | **Frontend** | **HTML5, CSS3, Tailwind CSS (CDN), FontAwesome 6, Chart.js** |
 | **Client-Server Comm** | **Asynchronous JavaScript (`fetch` API) & RESTful JSON endpoints** |
 | **Currency** | **Indian Rupees (₹ INR)** |
+| **Container & CI/CD** | **Dockerfile, render.yaml, GitHub Actions** |
 | **Build Tool** | **Apache Maven 3.9+** |
 
 ---
@@ -42,8 +55,11 @@
 ```
 d:\project
 ├── pom.xml                                 # Maven dependencies & build configuration
+├── Dockerfile                              # Production multi-stage Docker build
+├── render.yaml                             # 1-click cloud deployment blueprint
 ├── schema.sql                              # Production SQL DDL schema with indexes
 ├── README.md                               # Project documentation & interview guide
+├── .github/workflows/ci.yml                # Automated CI pipeline
 ├── .vscode/                                # Visual Studio Code 1-click Run & Debug configuration
 │   ├── launch.json                         # F5 Run configuration
 │   ├── tasks.json                          # Maven build tasks
@@ -77,18 +93,17 @@ d:\project
 
 ---
 
-## ⚡ Quick Start & Running in VS Code
+## ⚡ Quick Start in VS Code
 
 1. Open **VS Code** $\rightarrow$ **`File`** > **`Open Folder...`** $\rightarrow$ Select **`D:\project`**.
-2. Install the **Extension Pack for Java** (by Microsoft) in Extensions (`Ctrl+Shift+X`).
-3. Press **`F5`** or click **`Run`** above `main()` in [`CareConnectApplication.java`](file:///d:/project/src/main/java/com/careconnect/CareConnectApplication.java).
-4. Open your browser and go to **[http://localhost:8080](http://localhost:8080)**.
+2. Press **`F5`** or click **`Run`** above `main()` in [`CareConnectApplication.java`](file:///d:/project/src/main/java/com/careconnect/CareConnectApplication.java).
+3. Open your browser: **[http://localhost:8080](http://localhost:8080)**.
 
 ---
 
 ## 🔑 Pre-Seeded Demo Credentials (Indian Context)
 
-You can use the **Quick 1-Click Role Switcher** at the top bar of the webpage:
+Use the **1-Click Quick Role Switcher** at the top bar of the webpage:
 
 | Role | Name | Email | Password | Consultation Fee / Access |
 | :--- | :--- | :--- | :--- | :--- |
@@ -113,5 +128,5 @@ When asked: *"Tell me about a project you've built."*
    > *"I structured the backend using Spring Boot 3 following the Controller-Service-Repository pattern with Spring Data JPA. For the data layer, I designed a normalized relational database schema with compound unique constraints to prevent double-booking."*
 3. **Key Technical Challenge:**
    > *"Preventing concurrent slot conflicts was a key focus. If two patients attempt to book the same doctor at the same date and time, the application verifies slot availability in the service layer and enforces a database constraint `UNIQUE(doctor_id, appointment_date, time_slot)` to reject duplicates with a clean 400 Bad Request error handled centrally by `@RestControllerAdvice`."*
-4. **Localization & Usability:**
-   > *"The frontend features clean role-based dashboards for Patients, Doctors, and Administrators with fees modeled in Indian Rupees (₹), dynamic time slots, and a printable prescription layout."*
+4. **Cloud & DevOps:**
+   > *"I containerized the application with a multi-stage Dockerfile and configured CI/CD with GitHub Actions and automated deployment blueprints via Render."*
