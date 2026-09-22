@@ -56,20 +56,3 @@ CREATE INDEX idx_appointments_doctor ON appointments(doctor_id);
 CREATE INDEX idx_appointments_date ON appointments(appointment_date);
 CREATE INDEX idx_doctors_specialization ON doctors(specialization);
 
--- ===================================================================
--- Handy Clean Views for MySQL Command Line (Clean readable tables)
--- ===================================================================
-
-CREATE OR REPLACE VIEW v_doctors AS 
-  SELECT id, name, specialization, consultation_fee AS fee_inr, experience_years, available_days 
-  FROM doctors;
-
-CREATE OR REPLACE VIEW v_appointments AS 
-  SELECT a.id, u.full_name AS patient_name, d.name AS doctor_name, a.appointment_date, a.time_slot, a.status 
-  FROM appointments a 
-  JOIN users u ON a.patient_id = u.id 
-  JOIN doctors d ON a.doctor_id = d.id;
-
-CREATE OR REPLACE VIEW v_users AS 
-  SELECT id, full_name, email, role, phone 
-  FROM users;

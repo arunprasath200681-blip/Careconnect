@@ -125,17 +125,3 @@ INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, time_slot
 (5, 3, 1, DATE_ADD(CURDATE(), INTERVAL 3 DAY), '02:30 PM', 
  'Routine follow-up consultation for family cardiac history evaluation.', 'CONFIRMED', NULL, NULL, NOW());
 
--- 9. Create Clean Views for Command Line Viewing
-CREATE OR REPLACE VIEW v_doctors AS 
-  SELECT id, name, specialization, consultation_fee AS fee_inr, experience_years, available_days 
-  FROM doctors;
-
-CREATE OR REPLACE VIEW v_appointments AS 
-  SELECT a.id, u.full_name AS patient_name, d.name AS doctor_name, a.appointment_date, a.time_slot, a.status 
-  FROM appointments a 
-  JOIN users u ON a.patient_id = u.id 
-  JOIN doctors d ON a.doctor_id = d.id;
-
-CREATE OR REPLACE VIEW v_users AS 
-  SELECT id, full_name, email, role, phone 
-  FROM users;
