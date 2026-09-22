@@ -411,7 +411,7 @@ function createDoctorCard(doc) {
   card.innerHTML = `
     <div class="p-6">
       <div class="flex items-start space-x-4">
-        <img src="${doc.imageUrl}" alt="${doc.name}" class="w-16 h-16 rounded-2xl object-cover shadow-sm border border-slate-100 flex-shrink-0">
+        <img src="${doc.imageUrl}" alt="${doc.name}" class="w-16 h-16 rounded-2xl object-cover shadow-sm border border-slate-100 flex-shrink-0" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=' + encodeURIComponent('${doc.name}') + '&background=0284c7&color=fff&bold=true';">
         <div class="flex-grow">
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200/60 mb-1">
             <i class="${faIcon} mr-1 text-[10px]"></i> ${doc.specialization}
@@ -492,7 +492,12 @@ function openBookingModal(doctorId) {
 
   document.getElementById('bookDoctorId').value = doctor.id;
   document.getElementById('bookDoctorNameSubtitle').innerText = `With ${doctor.name} (${doctor.specialization})`;
-  document.getElementById('bookDoctorImg').src = doctor.imageUrl;
+  const modalDocImg = document.getElementById('bookDoctorImg');
+  modalDocImg.onerror = function() {
+    this.onerror = null;
+    this.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(doctor.name)}&background=0284c7&color=fff&bold=true`;
+  };
+  modalDocImg.src = doctor.imageUrl;
   document.getElementById('bookDoctorName').innerText = doctor.name;
   document.getElementById('bookDoctorSpec').innerText = `${doctor.specialization} &bull; ${doctor.qualification}`;
   document.getElementById('bookDoctorFee').innerText = formatINR(doctor.consultationFee);

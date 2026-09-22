@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="url(#g2)"/>
+  <circle cx="60" cy="46" r="22" fill="#ede9fe"/>
+  <path d="M26 104 C26 78 42 72 60 72 C78 72 94 78 94 104 Z" fill="#ede9fe"/>
+  <circle cx="60" cy="42" r="14" fill="#818cf8"/>
+  <path d="M50 78 L70 78 L65 104 L55 104 Z" fill="#4f46e5"/>
+  <text x="60" y="47" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SM</text>
+</svg>
