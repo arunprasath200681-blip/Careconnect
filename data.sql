@@ -1,0 +1,79 @@
+-- ===================================================================
+-- CareConnect - Sample Data Insertions Script
+-- Database: MySQL 8.x
+-- ===================================================================
+
+USE careconnect_db;
+
+-- Disable foreign key checks for clean insertion
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE appointments;
+TRUNCATE TABLE doctors;
+TRUNCATE TABLE users;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- 1. INSERT USERS (Clinic Admin, Patients, and Doctors)
+INSERT INTO users (id, full_name, email, password, phone, role, created_at) VALUES
+(1, 'Arun Kumar (Clinic Administrator)', 'admin@careconnect.in', 'admin123', '+91 98765 43210', 'ADMIN', NOW()),
+(2, 'Rahul Sharma', 'rahul@gmail.com', 'patient123', '+91 98401 12345', 'PATIENT', NOW()),
+(3, 'Ananya Patel', 'ananya@gmail.com', 'patient123', '+91 98402 23456', 'PATIENT', NOW()),
+(4, 'Vikram Sundaram', 'vikram@gmail.com', 'patient123', '+91 98403 34567', 'PATIENT', NOW()),
+(5, 'Dr. Rajesh Iyer', 'dr.rajesh@careconnect.in', 'doctor123', '+91 98111 02001', 'DOCTOR', NOW()),
+(6, 'Dr. Suresh Menon', 'dr.suresh@careconnect.in', 'doctor123', '+91 98111 02002', 'DOCTOR', NOW()),
+(7, 'Dr. Priya Sharma', 'dr.priya@careconnect.in', 'doctor123', '+91 98111 02003', 'DOCTOR', NOW()),
+(8, 'Dr. Arvind Swaminathan', 'dr.arvind@careconnect.in', 'doctor123', '+91 98111 02004', 'DOCTOR', NOW()),
+(9, 'Dr. Kavitha Raman', 'dr.kavitha@careconnect.in', 'doctor123', '+91 98111 02005', 'DOCTOR', NOW()),
+(10, 'Dr. Amit Verma', 'dr.amit@careconnect.in', 'doctor123', '+91 98111 02006', 'DOCTOR', NOW());
+
+-- 2. INSERT DOCTORS (With Indian institutes, qualifications, and ₹ INR fees)
+INSERT INTO doctors (id, user_id, name, specialization, qualification, experience_years, consultation_fee, bio, available_days, time_slots, image_url) VALUES
+(1, 5, 'Dr. Rajesh Iyer', 'Cardiology', 'MBBS, MD, DM (Cardiology) - AIIMS New Delhi', 15, 1000.0, 
+ 'Senior Interventional Cardiologist specializing in preventive heart health, hypertension management, and ECG/Echocardiogram evaluations.', 
+ 'Mon, Tue, Wed, Fri', '09:30 AM, 10:30 AM, 11:30 AM, 02:30 PM, 04:00 PM', 
+ 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80'),
+
+(2, 6, 'Dr. Suresh Menon', 'Neurology', 'MBBS, MD, DM (Neurology) - NIMHANS Bangalore', 14, 1200.0, 
+ 'Neurologist with extensive clinical expertise in chronic migraines, nerve disorders, stroke rehabilitation, and cognitive health.', 
+ 'Mon, Wed, Thu', '10:00 AM, 11:30 AM, 02:00 PM, 04:30 PM', 
+ 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80'),
+
+(3, 7, 'Dr. Priya Sharma', 'Dermatology', 'MBBS, MD (Dermatology) - CMC Vellore', 10, 750.0, 
+ 'Consultant Dermatologist specializing in allergic skin rashes, acne scar reduction, clinical eczema, and hair fall management.', 
+ 'Tue, Thu, Fri, Sat', '09:30 AM, 11:00 AM, 01:30 PM, 03:30 PM, 05:00 PM', 
+ 'https://images.unsplash.com/photo-1594824813590-79888981f7c3?w=400&auto=format&fit=crop&q=80'),
+
+(4, 8, 'Dr. Arvind Swaminathan', 'Orthopedics', 'MBBS, MS (Ortho), Fellowship in Joint Replacement - MMC Chennai', 16, 900.0, 
+ 'Orthopedic surgeon specializing in sports knee injuries, spondylosis, joint pain therapies, and fracture trauma management.', 
+ 'Mon, Tue, Thu', '09:00 AM, 10:30 AM, 02:30 PM, 04:00 PM', 
+ 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&auto=format&fit=crop&q=80'),
+
+(5, 9, 'Dr. Kavitha Raman', 'Pediatrics', 'MBBS, MD (Pediatrics) - PGIMER Chandigarh', 11, 650.0, 
+ 'Senior Pediatrician dedicated to infant nutrition, routine childhood vaccination programs, seasonal flu care, and child wellness.', 
+ 'Mon, Tue, Wed, Thu, Fri', '09:30 AM, 11:00 AM, 12:30 PM, 02:30 PM, 04:00 PM', 
+ 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&auto=format&fit=crop&q=80'),
+
+(6, 10, 'Dr. Amit Verma', 'General Medicine', 'MBBS, MD (Internal Medicine) - KMC Manipal', 9, 500.0, 
+ 'General physician focusing on diabetes care, seasonal viral fevers, hypertension, thyroid disorders, and routine health checkups.', 
+ 'Mon, Tue, Wed, Thu, Fri, Sat', '08:30 AM, 10:00 AM, 11:30 AM, 02:00 PM, 03:30 PM, 05:00 PM', 
+ 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&auto=format&fit=crop&q=80');
+
+-- 3. INSERT APPOINTMENTS (Sample past completed & upcoming visits)
+INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, time_slot, symptoms, status, doctor_notes, prescription, created_at) VALUES
+(1, 2, 1, DATE_SUB(CURDATE(), INTERVAL 3 DAY), '10:30 AM', 
+ 'Mild chest heaviness during morning brisk walk and palpitations.', 'COMPLETED', 
+ 'Blood pressure 130/84 mmHg. Resting ECG normal sinus rhythm. Mild exertion fatigue, advised lifestyle modification.', 
+ '1. Tab. Ecosprin 75mg - 1 tablet once daily after lunch for 30 days.\n2. Tab. Telma 40mg - 1 tablet early morning before breakfast.\n3. Routine Lipid Profile & HbA1c test after 4 weeks.', NOW()),
+
+(2, 3, 3, DATE_SUB(CURDATE(), INTERVAL 5 DAY), '09:30 AM', 
+ 'Seasonal skin itching and allergic redness on arms due to heat.', 'COMPLETED', 
+ 'Contact allergic dermatitis. Mild erythema observed, no secondary bacterial infection.', 
+ '1. Tab. Allegra 120mg - 1 tablet daily at night for 5 days.\n2. Calamine lotion - Apply twice daily on affected area.\n3. Avoid harsh scented soaps for 1 week.', NOW()),
+
+(3, 2, 6, DATE_ADD(CURDATE(), INTERVAL 1 DAY), '10:00 AM', 
+ 'Annual routine health check-up, fasting blood sugar review.', 'CONFIRMED', NULL, NULL, NOW()),
+
+(4, 4, 4, DATE_ADD(CURDATE(), INTERVAL 2 DAY), '09:00 AM', 
+ 'Right knee joint pain and swelling following badminton match.', 'CONFIRMED', NULL, NULL, NOW()),
+
+(5, 3, 1, DATE_ADD(CURDATE(), INTERVAL 3 DAY), '02:30 PM', 
+ 'Routine follow-up consultation for family cardiac history evaluation.', 'CONFIRMED', NULL, NULL, NOW());
