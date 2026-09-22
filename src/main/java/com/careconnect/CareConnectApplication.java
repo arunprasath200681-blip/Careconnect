@@ -10,8 +10,9 @@ public class CareConnectApplication {
         SpringApplication.run(CareConnectApplication.class, args);
         System.out.println("=================================================");
         System.out.println("CareConnect Clinic Management System Started!");
-        System.out.println("Web Portal:  http://localhost:8080");
-        System.out.println("H2 Console:  http://localhost:8080/h2-console");
+        System.out.println("Web Portal:      http://localhost:8080");
+        System.out.println("Database:        MySQL (careconnect_db)");
+        System.out.println("Tech Stack:      Java, Spring Boot, MySQL, HTML, CSS, JS");
         System.out.println("=================================================");
     }
 }

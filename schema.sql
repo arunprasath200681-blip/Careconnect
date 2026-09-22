@@ -1,7 +1,10 @@
 -- ===================================================================
 -- CareConnect - Clinic Appointment & Patient Scheduling Database Schema
--- Compatible with MySQL 8.x and H2 Database
+-- Database: MySQL 8.x
 -- ===================================================================
+
+CREATE DATABASE IF NOT EXISTS careconnect_db;
+USE careconnect_db;
 
 -- 1. Users Table (Patients, Doctors, Administrators)
 CREATE TABLE IF NOT EXISTS users (
