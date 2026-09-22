@@ -2,7 +2,7 @@
 
 [![Java](https://img.shields.io/badge/Java-22%20%7C%2017-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.4-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![Spring Data JPA](https://img.shields.io/badge/Spring%20Data-JPA-6DB33F?style=for-the-badge&logo=hibernate&logoColor=white)](https://spring.io/projects/spring-data-jpa)
+[![Spring Data JPA](https://img.shields.io/badge/Spring%20Data-JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-data-jpa)
 [![MySQL](https://img.shields.io/badge/Database-MySQL%208.0-00758F?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Frontend](https://img.shields.io/badge/Frontend-HTML5%20%7C%20CSS3%20%7C%20JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
@@ -16,10 +16,9 @@
 | :--- | :--- | :--- |
 | **Backend Language** | **Java (v22 / v17)** | Core business logic, object-oriented domain models, and validation |
 | **Backend Framework** | **Spring Boot (v3.3.4)** | Layered MVC architecture (`Controller`, `Service`, `Repository`) |
-| **ORM / Persistence** | **Spring Data JPA & Hibernate** | Relational mapping, transactional queries, and compound indexes |
+| **Data Access / ORM** | **Spring Data JPA & JDBC** | Relational mapping, repositories, transactional queries, and database connectivity |
 | **Database** | **MySQL 8.0** | Relational database (`careconnect_db`), foreign keys & unique constraints |
-| **Frontend UI** | **HTML5 & CSS3** | Responsive layouts, modern cards, glassmorphism modals, print stylesheets |
-| **Frontend Logic** | **Vanilla JavaScript** | Asynchronous API communication using the native `fetch` API |
+| **Frontend** | **HTML, CSS, JavaScript** | Semantic structure, custom responsive design, and asynchronous Fetch API |
 | **Currency** | **Indian Rupees (₹ INR)** | Authentic Indian clinic consultation fees (₹500 - ₹1,200) |
 
 ---
