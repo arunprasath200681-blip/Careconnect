@@ -60,14 +60,14 @@ INSERT INTO doctors (id, user_id, name, specialization, qualification, experienc
 -- 3. INSERT APPOINTMENTS (Sample past completed & upcoming visits)
 INSERT INTO appointments (id, patient_id, doctor_id, appointment_date, time_slot, symptoms, status, doctor_notes, prescription, created_at) VALUES
 (1, 2, 1, DATE_SUB(CURDATE(), INTERVAL 3 DAY), '10:30 AM', 
- 'Mild chest heaviness during morning brisk walk and palpitations.', 'COMPLETED', 
- 'Blood pressure 130/84 mmHg. Resting ECG normal sinus rhythm. Mild exertion fatigue, advised lifestyle modification.', 
- '1. Tab. Ecosprin 75mg - 1 tablet once daily after lunch for 30 days.\n2. Tab. Telma 40mg - 1 tablet early morning before breakfast.\n3. Routine Lipid Profile & HbA1c test after 4 weeks.', NOW()),
+ 'Mild chest heaviness during morning brisk walk.', 'COMPLETED', 
+ 'BP 130/84 mmHg, Resting ECG normal sinus rhythm.', 
+ 'Tab. Ecosprin 75mg OD, Tab. Telma 40mg OD, Lipid Profile test.', NOW()),
 
 (2, 3, 3, DATE_SUB(CURDATE(), INTERVAL 5 DAY), '09:30 AM', 
- 'Seasonal skin itching and allergic redness on arms due to heat.', 'COMPLETED', 
- 'Contact allergic dermatitis. Mild erythema observed, no secondary bacterial infection.', 
- '1. Tab. Allegra 120mg - 1 tablet daily at night for 5 days.\n2. Calamine lotion - Apply twice daily on affected area.\n3. Avoid harsh scented soaps for 1 week.', NOW()),
+ 'Seasonal skin itching and allergic redness on arms.', 'COMPLETED', 
+ 'Contact allergic dermatitis, mild erythema.', 
+ 'Tab. Allegra 120mg OD at night, Calamine lotion.', NOW()),
 
 (3, 2, 6, DATE_ADD(CURDATE(), INTERVAL 1 DAY), '10:00 AM', 
  'Annual routine health check-up, fasting blood sugar review.', 'CONFIRMED', NULL, NULL, NOW()),

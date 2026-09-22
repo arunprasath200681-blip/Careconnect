@@ -176,17 +176,17 @@ public class DataInitializer implements CommandLineRunner {
         LocalDate today = LocalDate.now();
 
         // Past Completed Consultation 1 (Rahul Sharma with Dr. Rajesh Iyer)
-        Appointment a1 = new Appointment(patient1, d1, today.minusDays(3), "10:30 AM", "Mild chest heaviness during morning brisk walk and palpitations.");
+        Appointment a1 = new Appointment(patient1, d1, today.minusDays(3), "10:30 AM", "Mild chest heaviness during morning brisk walk.");
         a1.setStatus(AppointmentStatus.COMPLETED);
-        a1.setDoctorNotes("Blood pressure 130/84 mmHg. Resting ECG normal sinus rhythm. Mild exertion fatigue, advised lifestyle modification.");
-        a1.setPrescription("1. Tab. Ecosprin 75mg - 1 tablet once daily after lunch for 30 days.\n2. Tab. Telma 40mg - 1 tablet early morning before breakfast.\n3. Routine Lipid Profile & HbA1c test after 4 weeks.");
+        a1.setDoctorNotes("BP 130/84 mmHg, Resting ECG normal sinus rhythm.");
+        a1.setPrescription("Tab. Ecosprin 75mg OD, Tab. Telma 40mg OD, Lipid Profile test.");
         appointmentRepository.save(a1);
 
         // Past Completed Consultation 2 (Ananya Patel with Dr. Priya Sharma)
-        Appointment a2 = new Appointment(patient2, d3, today.minusDays(5), "09:30 AM", "Seasonal skin itching and allergic redness on arms due to heat.");
+        Appointment a2 = new Appointment(patient2, d3, today.minusDays(5), "09:30 AM", "Seasonal skin itching and allergic redness on arms.");
         a2.setStatus(AppointmentStatus.COMPLETED);
-        a2.setDoctorNotes("Contact allergic dermatitis. Mild erythema observed, no secondary bacterial infection.");
-        a2.setPrescription("1. Tab. Allegra 120mg - 1 tablet daily at night for 5 days.\n2. Calamine lotion - Apply twice daily on affected area.\n3. Avoid harsh scented soaps for 1 week.");
+        a2.setDoctorNotes("Contact allergic dermatitis, mild erythema.");
+        a2.setPrescription("Tab. Allegra 120mg OD at night, Calamine lotion.");
         appointmentRepository.save(a2);
 
         // Upcoming Confirmed 1 (Rahul Sharma with Dr. Amit Verma)
