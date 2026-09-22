@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run CareConnect (Spring Boot)",
+      "request": "launch",
+      "mainClass": "com.careconnect.CareConnectApplication",
+      "projectName": "careconnect",
+      "args": "",
+      "vmArgs": ""
+    }
+  ]
+}
