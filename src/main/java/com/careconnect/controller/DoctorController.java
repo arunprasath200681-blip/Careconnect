@@ -4,7 +4,6 @@ import com.careconnect.dto.DoctorRequest;
 import com.careconnect.entity.Doctor;
 import com.careconnect.service.AppointmentService;
 import com.careconnect.service.DoctorService;
-import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,13 +57,13 @@ public class DoctorController {
     }
 
     @PostMapping
-    public ResponseEntity<Doctor> createDoctor(@Valid @RequestBody DoctorRequest request) {
+    public ResponseEntity<Doctor> createDoctor(@RequestBody DoctorRequest request) {
         Doctor created = doctorService.createDoctor(request);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id, @Valid @RequestBody DoctorRequest request) {
+    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id, @RequestBody DoctorRequest request) {
         Doctor updated = doctorService.updateDoctor(id, request);
         return ResponseEntity.ok(updated);
     }

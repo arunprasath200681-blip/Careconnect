@@ -5,34 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CareConnect | Smart Clinic & Patient Scheduling Portal</title>
   
-  <!-- Core Framework Styling CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              700: '#0369a1',
-            }
-          }
-        }
-      }
-    }
-  </script>
-
   <!-- Google Font & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Chart.js for Admin Analytics -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Custom CSS -->
+  <!-- Custom Semantic CSS (No Tailwind / No Chart.js dependencies) -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -407,18 +384,18 @@
         </div>
       </div>
 
-      <!-- Charts Row -->
+      <!-- Analytics Row (Pure HTML & CSS, No Chart.js) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
           <h2 class="text-base font-bold text-slate-800 mb-4">Appointments Status Breakdown</h2>
-          <div class="h-64 relative flex items-center justify-center">
-            <canvas id="statusChart"></canvas>
+          <div id="statusBreakdownContainer" class="space-y-4 py-2">
+            <!-- Populated via pure JS/CSS -->
           </div>
         </div>
         <div class="lg:col-span-6 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
           <h2 class="text-base font-bold text-slate-800 mb-4">Doctor Specialization Distribution</h2>
-          <div class="h-64 relative flex items-center justify-center">
-            <canvas id="specialtyChart"></canvas>
+          <div id="specialtyBreakdownContainer" class="space-y-4 py-2">
+            <!-- Populated via pure JS/CSS -->
           </div>
         </div>
       </div>

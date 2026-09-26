@@ -28,14 +28,31 @@ public class AuthService {
 
     @Transactional
     public AuthResponse register(RegisterRequest req) {
-        if (userRepository.existsByEmail(req.getEmail().toLowerCase().trim())) {
+        if (req == null) {
+            throw new BadRequestException("Registration request cannot be empty.");
+        }
+        if (req.getFullName() == null || req.getFullName().trim().isEmpty()) {
+            throw new BadRequestException("Full name is required.");
+        }
+        if (req.getEmail() == null || req.getEmail().trim().isEmpty() || !req.getEmail().contains("@")) {
+            throw new BadRequestException("A valid email address is required.");
+        }
+        if (req.getPassword() == null || req.getPassword().length() < 4) {
+            throw new BadRequestException("Password must have at least 4 characters.");
+        }
+        if (req.getPhone() == null || req.getPhone().trim().isEmpty()) {
+            throw new BadRequestException("Phone number is required.");
+        }
+
+        String normalizedEmail = req.getEmail().toLowerCase().trim();
+        if (userRepository.existsByEmail(normalizedEmail)) {
             throw new BadRequestException("An account with email '" + req.getEmail() + "' already exists.");
         }
 
         User user = new User();
         user.setFullName(req.getFullName().trim());
-        user.setEmail(req.getEmail().toLowerCase().trim());
-        user.setPassword(req.getPassword()); // In a full prod system with Spring Security this would be BCryptPasswordEncoder
+        user.setEmail(normalizedEmail);
+        user.setPassword(req.getPassword());
         user.setPhone(req.getPhone().trim());
         user.setRole(req.getRole() != null ? req.getRole() : Role.PATIENT);
 
@@ -52,6 +69,11 @@ public class AuthService {
     }
 
     public AuthResponse login(AuthRequest req) {
+        if (req == null || req.getEmail() == null || req.getEmail().trim().isEmpty() ||
+            req.getPassword() == null || req.getPassword().trim().isEmpty()) {
+            throw new BadRequestException("Email and password are required.");
+        }
+
         String email = req.getEmail().toLowerCase().trim();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new BadRequestException("Invalid email or password."));

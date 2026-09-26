@@ -1,39 +1,16 @@
 package com.careconnect.dto;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 public class DoctorRequest {
 
-    @NotBlank(message = "Doctor name is required")
     private String name;
-
     private String email;
-
-    @NotBlank(message = "Specialization is required")
     private String specialization;
-
-    @NotBlank(message = "Qualification is required")
     private String qualification;
-
-    @NotNull(message = "Years of experience is required")
-    @Min(value = 0, message = "Experience cannot be negative")
     private Integer experienceYears;
-
-    @NotNull(message = "Consultation fee is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Fee must be greater than 0")
     private Double consultationFee;
-
     private String bio;
-
-    @NotBlank(message = "Available days is required")
     private String availableDays;
-
-    @NotBlank(message = "Time slots are required")
     private String timeSlots;
-
     private String imageUrl;
 
     public DoctorRequest() {

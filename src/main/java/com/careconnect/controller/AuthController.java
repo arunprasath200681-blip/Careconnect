@@ -5,7 +5,6 @@ import com.careconnect.dto.AuthResponse;
 import com.careconnect.dto.RegisterRequest;
 import com.careconnect.entity.User;
 import com.careconnect.service.AuthService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +21,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
         AuthResponse response = authService.register(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }

@@ -6,8 +6,6 @@
 // Application State
 let currentUser = null;
 let allDoctors = [];
-let statusChartInstance = null;
-let specialtyChartInstance = null;
 
 // Department Icon Map
 const DEPARTMENT_ICONS = {
@@ -770,73 +768,67 @@ async function loadAdminDashboard() {
     document.getElementById('kpiTotalPatients').innerText = stats.totalPatients;
     document.getElementById('kpiTotalRevenue').innerText = formatINR(stats.estimatedRevenue);
 
-    renderStatusChart(stats);
-    renderSpecialtyChart(stats.specializationStats);
+    renderStatusBreakdown(stats);
+    renderSpecialtyBreakdown(stats.specializationStats);
     renderAdminAppointments(stats.recentAppointments);
   } catch (err) {
     showToast('Failed to load clinic statistics.', 'error');
   }
 }
 
-function renderStatusChart(stats) {
-  const ctx = document.getElementById('statusChart').getContext('2d');
-  if (statusChartInstance) statusChartInstance.destroy();
+function renderStatusBreakdown(stats) {
+  const container = document.getElementById('statusBreakdownContainer');
+  if (!container) return;
+  const total = (stats.confirmedAppointments || 0) + (stats.completedAppointments || 0) + 
+                (stats.pendingAppointments || 0) + (stats.cancelledAppointments || 0) || 1;
 
-  statusChartInstance = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Confirmed', 'Completed', 'Pending', 'Cancelled'],
-      datasets: [{
-        data: [
-          stats.confirmedAppointments,
-          stats.completedAppointments,
-          stats.pendingAppointments,
-          stats.cancelledAppointments
-        ],
-        backgroundColor: ['#0284c7', '#16a34a', '#eab308', '#dc2626'],
-        borderWidth: 2,
-        borderColor: '#ffffff'
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom' }
-      }
-    }
-  });
+  const items = [
+    { label: 'Confirmed', count: stats.confirmedAppointments || 0, color: '#0284c7', bg: '#e0f2fe' },
+    { label: 'Completed', count: stats.completedAppointments || 0, color: '#16a34a', bg: '#dcfce7' },
+    { label: 'Pending', count: stats.pendingAppointments || 0, color: '#d97706', bg: '#fef3c7' },
+    { label: 'Cancelled', count: stats.cancelledAppointments || 0, color: '#dc2626', bg: '#fee2e2' }
+  ];
+
+  container.innerHTML = items.map(item => {
+    const pct = Math.round((item.count / total) * 100);
+    return `
+      <div class="mb-3">
+        <div class="flex justify-between items-center text-xs font-semibold mb-1">
+          <span style="color: ${item.color}; font-weight: 700;">${item.label}</span>
+          <span class="text-slate-600">${item.count} (${pct}%)</span>
+        </div>
+        <div style="background-color: ${item.bg}; height: 8px; border-radius: 9999px; overflow: hidden;">
+          <div style="width: ${pct}%; background-color: ${item.color}; height: 100%; border-radius: 9999px; transition: width 0.4s ease;"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
-function renderSpecialtyChart(specStats) {
-  const ctx = document.getElementById('specialtyChart').getContext('2d');
-  if (specialtyChartInstance) specialtyChartInstance.destroy();
+function renderSpecialtyBreakdown(specStats) {
+  const container = document.getElementById('specialtyBreakdownContainer');
+  if (!container) return;
+  const entries = Object.entries(specStats || {});
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="text-xs text-slate-400 py-4 text-center">No active doctors registered yet.</div>';
+    return;
+  }
+  const maxCount = Math.max(...entries.map(e => e[1]), 1);
 
-  const labels = Object.keys(specStats || {});
-  const data = Object.values(specStats || {});
-
-  specialtyChartInstance = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Active Doctors',
-        data,
-        backgroundColor: '#0ea5e9',
-        borderRadius: 8
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: { beginAtZero: true, ticks: { stepSize: 1 } }
-      },
-      plugins: {
-        legend: { display: false }
-      }
-    }
-  });
+  container.innerHTML = entries.map(([spec, count]) => {
+    const pct = Math.round((count / maxCount) * 100);
+    return `
+      <div class="mb-3">
+        <div class="flex justify-between items-center text-xs font-semibold mb-1">
+          <span class="text-slate-800 font-semibold">${spec}</span>
+          <span class="text-sky-600 font-bold">${count} Doctor${count > 1 ? 's' : ''}</span>
+        </div>
+        <div style="background-color: #f1f5f9; height: 8px; border-radius: 9999px; overflow: hidden;">
+          <div style="width: ${pct}%; background-color: #0284c7; height: 100%; border-radius: 9999px; transition: width 0.4s ease;"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 function renderAdminAppointments(list) {

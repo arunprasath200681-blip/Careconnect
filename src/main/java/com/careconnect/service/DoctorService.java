@@ -4,6 +4,7 @@ import com.careconnect.dto.DoctorRequest;
 import com.careconnect.entity.Doctor;
 import com.careconnect.entity.Role;
 import com.careconnect.entity.User;
+import com.careconnect.exception.BadRequestException;
 import com.careconnect.exception.ResourceNotFoundException;
 import com.careconnect.repository.DoctorRepository;
 import com.careconnect.repository.UserRepository;
@@ -50,8 +51,37 @@ public class DoctorService {
         return doctorRepository.findDistinctSpecializations();
     }
 
+    private void validateDoctorRequest(DoctorRequest req) {
+        if (req == null) {
+            throw new BadRequestException("Doctor details cannot be empty.");
+        }
+        if (req.getName() == null || req.getName().trim().isEmpty()) {
+            throw new BadRequestException("Doctor name is required.");
+        }
+        if (req.getSpecialization() == null || req.getSpecialization().trim().isEmpty()) {
+            throw new BadRequestException("Specialization is required.");
+        }
+        if (req.getQualification() == null || req.getQualification().trim().isEmpty()) {
+            throw new BadRequestException("Qualification is required.");
+        }
+        if (req.getExperienceYears() == null || req.getExperienceYears() < 0) {
+            throw new BadRequestException("Valid years of experience is required.");
+        }
+        if (req.getConsultationFee() == null || req.getConsultationFee() <= 0) {
+            throw new BadRequestException("Consultation fee must be greater than 0.");
+        }
+        if (req.getAvailableDays() == null || req.getAvailableDays().trim().isEmpty()) {
+            throw new BadRequestException("Available days are required.");
+        }
+        if (req.getTimeSlots() == null || req.getTimeSlots().trim().isEmpty()) {
+            throw new BadRequestException("Time slots are required.");
+        }
+    }
+
     @Transactional
     public Doctor createDoctor(DoctorRequest req) {
+        validateDoctorRequest(req);
+
         User user = null;
         if (req.getEmail() != null && !req.getEmail().isBlank()) {
             String email = req.getEmail().toLowerCase().trim();
@@ -59,10 +89,10 @@ public class DoctorService {
                 User newUser = new User(
                         req.getName(),
                         email,
-                        "doctor123", // default password
+                        "doctor123",
                         "000-000-0000",
                         Role.DOCTOR
-                );
+                    );
                 return userRepository.save(newUser);
             });
         }
@@ -90,6 +120,7 @@ public class DoctorService {
 
     @Transactional
     public Doctor updateDoctor(Long id, DoctorRequest req) {
+        validateDoctorRequest(req);
         Doctor doctor = getDoctorById(id);
         doctor.setName(req.getName().trim());
         doctor.setSpecialization(req.getSpecialization().trim());

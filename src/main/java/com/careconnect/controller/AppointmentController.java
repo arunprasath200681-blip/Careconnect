@@ -5,7 +5,6 @@ import com.careconnect.dto.AppointmentResponse;
 import com.careconnect.dto.PrescriptionRequest;
 import com.careconnect.dto.StatusUpdateRequest;
 import com.careconnect.service.AppointmentService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentResponse> bookAppointment(@Valid @RequestBody AppointmentRequest request) {
+    public ResponseEntity<AppointmentResponse> bookAppointment(@RequestBody AppointmentRequest request) {
         AppointmentResponse response = appointmentService.bookAppointment(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -47,14 +46,14 @@ public class AppointmentController {
     @PutMapping("/{id}/status")
     public ResponseEntity<AppointmentResponse> updateStatus(
             @PathVariable Long id,
-            @Valid @RequestBody StatusUpdateRequest request) {
+            @RequestBody StatusUpdateRequest request) {
         return ResponseEntity.ok(appointmentService.updateStatus(id, request.getStatus()));
     }
 
     @PostMapping("/{id}/prescription")
     public ResponseEntity<AppointmentResponse> addPrescription(
             @PathVariable Long id,
-            @Valid @RequestBody PrescriptionRequest request) {
+            @RequestBody PrescriptionRequest request) {
         return ResponseEntity.ok(appointmentService.addPrescription(id, request));
     }
 

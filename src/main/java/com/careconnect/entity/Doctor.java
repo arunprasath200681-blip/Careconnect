@@ -1,43 +1,17 @@
 package com.careconnect.entity;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "doctors")
 public class Doctor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
     private User user;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private String specialization;
-
-    @Column(nullable = false)
     private String qualification;
-
-    @Column(nullable = false)
     private Integer experienceYears;
-
-    @Column(nullable = false)
     private Double consultationFee;
-
-    @Column(length = 1000)
     private String bio;
-
-    @Column(nullable = false)
     private String availableDays;
-
-    @Column(nullable = false, length = 500)
     private String timeSlots;
-
     private String imageUrl;
 
     public Doctor() {

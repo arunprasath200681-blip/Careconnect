@@ -37,6 +37,24 @@ public class AppointmentService {
 
     @Transactional
     public AppointmentResponse bookAppointment(AppointmentRequest req) {
+        if (req == null) {
+            throw new BadRequestException("Appointment request cannot be empty.");
+        }
+        if (req.getPatientId() == null) {
+            throw new BadRequestException("Patient ID is required.");
+        }
+        if (req.getDoctorId() == null) {
+            throw new BadRequestException("Doctor ID is required.");
+        }
+        if (req.getAppointmentDate() == null) {
+            throw new BadRequestException("Appointment date is required.");
+        }
+        if (req.getTimeSlot() == null || req.getTimeSlot().trim().isEmpty()) {
+            throw new BadRequestException("Time slot is required.");
+        }
+        if (req.getSymptoms() == null || req.getSymptoms().trim().isEmpty()) {
+            throw new BadRequestException("Symptoms or reason for visit is required.");
+        }
         if (req.getAppointmentDate().isBefore(LocalDate.now())) {
             throw new BadRequestException("Cannot book appointments for past dates.");
         }
@@ -47,7 +65,6 @@ public class AppointmentService {
         Doctor doctor = doctorRepository.findById(req.getDoctorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor not found with ID: " + req.getDoctorId()));
 
-        // Check if doctor is already booked at that slot and date (and not cancelled)
         Optional<Appointment> existingBooking = appointmentRepository
                 .findByDoctorIdAndAppointmentDateAndTimeSlot(doctor.getId(), req.getAppointmentDate(), req.getTimeSlot().trim());
 
@@ -122,6 +139,9 @@ public class AppointmentService {
 
     @Transactional
     public AppointmentResponse updateStatus(Long appointmentId, AppointmentStatus status) {
+        if (status == null) {
+            throw new BadRequestException("Status cannot be null.");
+        }
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with ID: " + appointmentId));
 
@@ -132,6 +152,9 @@ public class AppointmentService {
 
     @Transactional
     public AppointmentResponse addPrescription(Long appointmentId, PrescriptionRequest req) {
+        if (req == null || req.getPrescription() == null || req.getPrescription().trim().isEmpty()) {
+            throw new BadRequestException("Prescription cannot be blank.");
+        }
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with ID: " + appointmentId));
 
@@ -153,7 +176,6 @@ public class AppointmentService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with ID: " + userId));
 
-        // Only the patient who booked it, the assigned doctor, or an admin can cancel
         boolean isPatient = appointment.getPatient().getId().equals(userId);
         boolean isDoctor = appointment.getDoctor().getUser() != null && appointment.getDoctor().getUser().getId().equals(userId);
         boolean isAdmin = user.getRole() == Role.ADMIN;

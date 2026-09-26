@@ -1,12 +1,8 @@
 package com.careconnect.dto;
 
-import jakarta.validation.constraints.NotBlank;
-
 public class PrescriptionRequest {
 
     private String doctorNotes;
-
-    @NotBlank(message = "Prescription cannot be blank")
     private String prescription;
 
     public PrescriptionRequest() {

@@ -1,33 +1,15 @@
 package com.careconnect.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String fullName;
-
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false)
     private String phone;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
-
-    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     public User() {
@@ -41,13 +23,6 @@ public class User {
         this.phone = phone;
         this.role = role;
         this.createdAt = LocalDateTime.now();
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        if (this.createdAt == null) {
-            this.createdAt = LocalDateTime.now();
-        }
     }
 
     // Getters and Setters

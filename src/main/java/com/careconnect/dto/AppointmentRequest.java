@@ -1,26 +1,13 @@
 package com.careconnect.dto;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class AppointmentRequest {
 
-    @NotNull(message = "Patient ID is required")
     private Long patientId;
-
-    @NotNull(message = "Doctor ID is required")
     private Long doctorId;
-
-    @NotNull(message = "Appointment date is required")
-    @FutureOrPresent(message = "Appointment date cannot be in the past")
     private LocalDate appointmentDate;
-
-    @NotBlank(message = "Time slot is required")
     private String timeSlot;
-
-    @NotBlank(message = "Symptoms or reason for visit is required")
     private String symptoms;
 
     public AppointmentRequest() {

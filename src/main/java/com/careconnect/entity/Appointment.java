@@ -1,46 +1,19 @@
 package com.careconnect.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "appointments",
-       uniqueConstraints = @UniqueConstraint(columnNames = {"doctor_id", "appointment_date", "time_slot"}))
 public class Appointment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "patient_id", nullable = false)
     private User patient;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
-
-    @Column(name = "appointment_date", nullable = false)
     private LocalDate appointmentDate;
-
-    @Column(name = "time_slot", nullable = false)
     private String timeSlot;
-
-    @Column(length = 1000)
     private String symptoms;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private AppointmentStatus status;
-
-    @Column(length = 1500)
     private String doctorNotes;
-
-    @Column(length = 1500)
     private String prescription;
-
-    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     public Appointment() {
@@ -57,16 +30,6 @@ public class Appointment {
         this.symptoms = symptoms;
         this.status = AppointmentStatus.PENDING;
         this.createdAt = LocalDateTime.now();
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        if (this.createdAt == null) {
-            this.createdAt = LocalDateTime.now();
-        }
-        if (this.status == null) {
-            this.status = AppointmentStatus.PENDING;
-        }
     }
 
     // Getters and Setters
